@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "run.py", "use": "@now/python" , "config": { "maxLambdaSize": "10mb" } }
+  ],
+  "routes": [{ "src": "(.*)", "dest": "run.py" }],
+  "env": {
+    "SLACK_ACCESS_TOKEN": "@slack_access_token"    
+  }  
+}
