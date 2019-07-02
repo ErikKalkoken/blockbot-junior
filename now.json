@@ -5,6 +5,8 @@
   ],
   "routes": [{ "src": "(.*)", "dest": "run.py" }],
   "env": {
-    "SLACK_ACCESS_TOKEN": "@slack_access_token"    
+    "SLACK_ACCESS_TOKEN": "@slack_access_token",
+    "SLACK_BOT_TOKEN": "@slack_bot_token",
+    "SLACK_VERIFICATION_TOKEN": "@slack_verification_token"
   }  
 }
