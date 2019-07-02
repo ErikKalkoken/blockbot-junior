@@ -42,16 +42,16 @@ def events_endpoint():
 
 
 def get_allowed_users(channel_id):
-    """ returns the list of allowed users for a channel """
-    users = ADMIN_USERS
-    if channel_id in ALLOWED_CHANNEL_USERS:
-        users +=  ALLOWED_CHANNEL_USERS[channel_id]
-    return set(users)
+    """ returns the list of allowed users for a channel """        
+    if channel_id in ALLOWED_CHANNEL_USERS:        
+        users = ADMIN_USERS + ALLOWED_CHANNEL_USERS[channel_id]
+    else:        
+        users = ADMIN_USERS
+    return users
 
 
 def delete_message(event):
     """ delete message referenced by this event """
-
     client_user = slack.WebClient(token=os.environ['SLACK_ACCESS_TOKEN'])
     response = client_user.chat_delete(
         channel=event['channel'],
@@ -71,7 +71,7 @@ def slash_endpoint():
     # get context of current request
     user_id = request.form['user_id']
     channel_id = request.form['channel_id']
-
+    
     if user_id not in ADMIN_USERS:
         text = 'Sorry, but you are not authorized to use this slash command.'
     else:                
@@ -81,9 +81,11 @@ def slash_endpoint():
             types="public_channel,private_channel"
         )
         assert response["ok"]    
-        channels = get_col(response["channels"], "id")
+        channels = list(get_col(response["channels"], "id"))
         
+        print(channel_id)
         allowed_users = get_allowed_users(channel_id)
+        print(allowed_users)
 
         # compile results into text
         text = "Welcome to blockbot-junior!\n"

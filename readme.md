@@ -1,31 +1,30 @@
 # blockbot junior
-This is a simple bot for Slack. It's function is to turn any channel into an announcement style channel, where only some people are able to post messages.
-This is achieved by automatically deleting posts from any unauthorized user.
-
-Note that the architecture of this bot is kept as simple as possible with the aim to run on a serverless platform like Zeit-Now.
+This is a simple bot for Slack. It's function is to turn a channel into an announcement style channel, so that only certain users are able to post messages. It's design has been kept simple, so it can run on a basic serverless platform.
 
 ## What this bot does
-This bot can turn any channel (work for both public and private channels) into an announcement style channel. It is activated by adding its bot user to a channel. And can be deactivated by removing its bot user from a channel.
+This bot can turn any channel (public or private) into an announcement style channel, where only a subset of users are allowed to post and all other users are blocked. 
 
 It works by automatically deleting posts from any user that is not authorized to post in a specific channel. Note that the user will not get any notification from the bot about the deletion. His/her messages will just vanish shortly after posting.
 
-Users (and bots) that are allowed to make posts in the announcement channel need to be included in ALLOWED_USERS lists of the bots configuration. 
+To keep things simple this bot is meant to be install for one workspace only, but it can establish multiple announcement channels if needed.
 
-Note that due to its simplicity this bot is meant to be install for one workspace only.
 
 ## Installation
 In the following we explain how to install this bot to a Slack workspace.
 
 ### Requirements
 In order to be able to install this bot the following is needed:
-- User with admin account on a Slack workspace
-- A github account for forking the repo and storing the source code
-- A Zeit-Now account for hosting the bot
+- User with admin account for your Slack workspace (this is mandatory)
+- A [github](https://github.com/) account for forking this repo and storing the source code
+- A [Zeit-Now](https://zeit.co/) account for hosting the bot
+
+**Note:**
+This bot will in principle run on any serverless platform and - when supplied with the needed additional infrastructure - also on standard web servers. We are using Now here only as example. Check out [this article](https://geekflare.com/serverless-computing-platform/) on Geek Flare for an overview of serverless platform providers.
 
 ### 1 - Create a Slack app
-Create a new Slack app. We would recommend to call the app "blockbot-junior".
+Create a new [Slack app](https://api.slack.com/start/overview). We will assume you called the app by its intended name, which is "blockbot-junior".
 
-Make sure to add a short description. If you want you can also use the provided icon image as App Icon.
+Make sure to add a short description. If you want you can also use the provided icon image as App Icon and define a color.
 
 On the page "Bot Users" click on "Add a Bot User" to add a bot user. You can change the name, but we would recommend to leave it as "blockbot-junior".
 
